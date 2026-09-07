@@ -47,6 +47,15 @@ export function CpuIcon({ size = 64 }) {
 
 export function ProductImage({ src, alt, size = 64 }) {
   const [failed, setFailed] = useState(false)
-  if (failed) return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}><CpuIcon size={size} /></div>
-  return <img src={src} alt={alt} onError={() => setFailed(true)} />
+  
+  // Asegurar que la ruta sea absoluta (desde la raíz)
+  const imageSrc = src.startsWith('/') ? src : `/${src}`
+  
+  if (failed) return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+      <CpuIcon size={size} />
+    </div>
+  )
+  
+  return <img src={imageSrc} alt={alt} onError={() => setFailed(true)} />
 }
